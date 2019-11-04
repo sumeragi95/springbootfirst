@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add List Identity</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css"
+      th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+      rel="stylesheet" media="screen"/>
+<link th:href="@{/css/bootstrap-datepicker3.css}" rel="stylesheet" />
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/fn.js}"></script>
+<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+</head>
+<body>
+<div class="container">
+<a style="margin-top:30px;" href="/app/index" class="btn btn-primary">Back To List</a>
+<h1>Create A List Identity</h1>
+<form th:action="@{/app/multiadd?save=true}" th:object="${form}" method="POST">
+<table id="tbt" class="table">
+	<tr>
+		<th class="required">Employee Id</th>
+		<th class="required">Work date</th>
+		<th class="required">Start time</th>
+		<th class="required">End time</th>
+		<th></th>
+	</tr>
+	
+	<tbody id="tbtdb">
+	<tr th:each="identity,status : *{identities}">
+			<td>
+			<input class="form-control" type="text" th:field="*{identities[__${status.index}__].id_nv}" placeholder="Employee Id" th:value="${identity.id_nv}"/>
+			<label style="color:red" th:if="${#fields.hasErrors('identities[__${status.index}__].id_nv')}" th:errors="*{identity.id_nv}">Employee ID Error</label>
+			</td>
+			<td>
+			<input class="form-control" type="date" th:field="*{identities[__${status.index}__].work_date}" th:value="${identity.work_date}"/>
+			<label style="color:red" th:if="${#fields.hasErrors('identities[__${status.index}__].work_date')}" th:errors="*{identity.work_date}">Work date Error</label>
+			</td>
+			<td>
+			<input class="form-control" type="text" th:field="*{identities[__${status.index}__].start_time}" placeholder="Start time" th:value="${identity.start_time}"/>
+			<label style="color:red" th:if="${#fields.hasErrors('identities[__${status.index}__].start_time')}" th:errors="*{identity.start_time}">Start time Error</label>
+			</td>
+			<td>
+			<input class="form-control" type="text" th:field="*{identities[__${status.index}__].end_time}" placeholder="End time" th:value="${identity.end_time}"/>
+			<label style="color:red" th:if="${#fields.hasErrors('identities[__${status.index}__].end_time')}" th:errors="*{identity.end_time}">End time Error</label>
+			</td>
+			<!--
+			<td><a th:href="${'/app/multiadd?removeItem='+ status.index}" style="color:#FFF;" class="btn btn-xs btn-danger"> <span class="glyphicon glyphicon-remove"></span></a></td> 
+			 -->
+			 <td><button name="removeItem" th:value="${status.index}" type="button" style="color:#FFF;" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span></button></td>
+			
+	</tr>
+	</tbody>
+</table>
+    <div style="margin-bottom:20px;">
+    
+     <button class="btn btn-lg" style="color:#FFF;background:#2f3542" type="button" name="addItem">Add Row</button>
+    <!-- 
+    <a href="/app/removeRow" class="btn btn-lg" style="color:#FFF;background:#3F51B5">Remove Row</a> 
+    <a href="/app/multiadd?addItem" class="btn btn-lg" style="color:#FFF;background:#2f3542">Add Row</a>
+    -->
+    </div>
+	<div>
+	<input type="submit" class="btn btn-success" value="Save"/>
+	<input type="reset" class="btn" style="color:#FFF;background:#FF5722" id="resetButton" name="reset" th:value="Reset"/>
+	</div>	
+</form>
+</div>
+</body>
+</html>
