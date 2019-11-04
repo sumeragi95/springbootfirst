@@ -104,3 +104,28 @@ public class MainController {
 		model.addAttribute("currentPage", currentPage);
 		return "index";
 	}
+@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+	public String deleteIdentity(@PathVariable("id") int id_nv, Model model)
+	{
+		identityMapper.delete(id_nv);
+		return "redirect:/app/index?page=1&pageSize="+viewConfig.ItemPerPage;
+	}
+	
+	
+	// ROUTES INVOLVE PROCESSING LIST OBJECT
+	
+	// initial page
+	@RequestMapping(value="/multiadd", method = RequestMethod.GET)
+	public String showMutiAddPage(Model model)
+	{
+		IdentityForm identityForm = new IdentityForm();
+		List<Identity> identities = new ArrayList<Identity>();
+		for(int i=1; i<=viewConfig.InitialRow; i++ )
+		{
+			identities.add(new Identity());
+		}
+		identityForm.setIdentities(identities);
+		model.addAttribute("form", identityForm);
+		return "addIdentities";
+	}
+	
