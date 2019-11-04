@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Identity List</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Bootstrap core CSS -->
+<link type="text/css"
+      th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+      rel="stylesheet" media="screen"/>
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+<link th:href="@{/css/bootstrap-datepicker3.css}" rel="stylesheet" />
+
+<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+
+</head>
+<body>
+<div class="container">
+<h1>Identity</h1>
+<table class="table table-striped">
+	<tr>
+		<th>Employee Id</th>
+		<th>Work Date</th>
+		<th>Start time</th>
+		<th>End time</th>
+		<th></th>
+		<th></th>
+	</tr>
+	<tr th:each="identity: ${identities}">
+		<td th:text="${identity.id_nv}"></td>
+		<td th:text="${#dates.format(identity.work_date, 'dd-MMM-yyyy')}"></td>
+		<td th:text="${identity.start_time}"></td>
+		<td th:text="${identity.end_time}"></td>
+		<td><a th:href="${'/app/delete/'+ identity.id_nv}" style="color:#FFF;" class="btn btn-danger">Delete</a></td>
+		<td><a th:href="${'/app/edit/'+ identity.id_nv}" style="color:#FFF;" class="btn btn-primary">Edit</a></td>
+		
+	</tr>
+</table>
+<div class="text-center">
+	<ul class="pagination">
+		<li 
+		th:each="idx: ${#numbers.sequence(1, pages)}" 
+		th:classappend="${#strings.equals(#strings.toString(idx), #strings.toString(currentPage))} ? active : ''">
+		<a 
+		th:text="${idx}" 
+		th:href="@{/app/index(page=${idx},pageSize=${pageSize})}">
+		</a>
+	</li>
+	</ul>
+</div>
+<div>
+<a href="/app/add" class="btn btn-success">Add Identity</a>
+<a href="/app/multiadd" class="btn" style="color:#FFF;background:#00b894">Add A List</a>
+</div>
+</div>
+</body>
+</html>
