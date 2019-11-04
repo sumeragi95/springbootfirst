@@ -1,0 +1,47 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fj.king.mapper.IdentityMapper">
+
+	<resultMap id="IdentityResultMap" type="fj.king.model.Identity">
+		<id column="id_nv" property="id_nv" />
+		<result column="work_date" property="work_date" />
+		<result column="start_time" property="start_time" />
+		<result column="end_time" property="end_time" />
+	</resultMap>
+
+	<select id="findAll" resultMap="IdentityResultMap" parameterType="map">
+		select * from tbt_time order by id_nv DESC offset #{start} limit #{size} 
+	</select>
+	
+	<select id="findById" resultMap="IdentityResultMap" >
+		select * from tbt_time where id_nv = #{id}
+	</select>
+	
+	<select id="countTotalRecords" resultType="int">
+	select count(*)
+	from tbt_time
+	</select>
+
+	
+	<insert id="insert" parameterType="fj.king.model.Identity" keyProperty="id_nv">
+	insert into tbt_time(id_nv, work_date, start_time, end_time) values(#{id_nv},#{work_date},#{start_time}, #{end_time}) 
+	</insert>
+	
+	<delete id="delete" parameterType="map">
+	   delete from tbt_time where id_nv = #{id}
+	</delete>
+	
+	<update id="update" parameterType="fj.king.model.Identity">
+		UPDATE tbt_time SET work_date=#{work_date}, start_time=#{start_time}, end_time=#{end_time} WHERE id_nv =#{id_nv}  	    
+	</update>
+	<insert id="insertList" parameterType="java.util.List">
+	INSERT INTO tbt_time(id_nv, work_date, start_time, end_time) 
+	VALUES
+	<foreach collection="list" item="identity" separator=",">
+	(#{identity.id_nv}, #{identity.work_date}, #{identity.start_time}, #{identity.end_time})
+	</foreach>
+	</insert>
+	
+</mapper>
+
