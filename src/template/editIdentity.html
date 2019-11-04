@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Edit Identity</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css"
+      th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+      rel="stylesheet" media="screen"/>
+<link th:href="@{/css/bootstrap-datepicker3.css}" rel="stylesheet" />
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+</head>
+<body>
+<div class="container">
+<a style="margin-top:30px;" href="/app/index" class="btn btn-primary">Back To List</a>
+<h1>Edit Identity</h1>
+<form th:action="@{/app/edit}" th:object="${identity}" method="POST">
+	<input class="form-control" type="hidden" th:field="*{id_nv}" />
+	<label style="color:red" th:if="${#fields.hasErrors('id_nv')}" th:errors="*{id_nv}">Employee ID Error</label>
+	<div style="clear:both; display:block; height: 10px;"></div>
+	<input id="workdate" class="form-control" type="date" th:field="*{work_date}" placeholder="Work date"/>
+	<label style="color:red" th:if="${#fields.hasErrors('work_date')}" th:errors="*{work_date}">Work date Error</label>
+	<div style="clear:both; display:block; height: 10px;"></div>
+	<input class="form-control" type="text" th:field="*{start_time}" placeholder="Start time"/>
+	<label style="color:red" th:if="${#fields.hasErrors('start_time')}" th:errors="*{start_time}">Start time Error</label>
+	<div style="clear:both; display:block; height: 10px;"></div>
+	<input class="form-control" type="text" th:field="*{end_time}" placeholder="End time"/>
+	<label style="color:red" th:if="${#fields.hasErrors('end_time')}" th:errors="*{end_time}">End time Error</label>
+	<div style="clear:both; display:block; height: 10px;"></div>
+	<input type="submit" class="btn btn-success" value="Save"/>
+</form>
+</div>
+</body>
+</html>
