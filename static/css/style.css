@@ -1,0 +1,12 @@
+.whitefont {
+	color: #FFF;
+}
+
+.required label {
+    font-weight: bold;
+}
+.required:after {
+    color: #e32;
+    content: ' *';
+    display:inline;
+}
